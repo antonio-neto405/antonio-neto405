@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teia de Ouro · Arcade</title>
+<style>
+  :root{--red:#E62429;--blue:#1B3A8C;--bg:#0b1020;--fg:#fff}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:var(--bg);color:var(--fg);font-family:system-ui,sans-serif}
+  h1{margin:0;font-size:1.3rem;color:var(--red)}
+  canvas{width:min(94vw,720px);aspect-ratio:2/1;background:linear-gradient(#1B3A8C,#0b1020);border:3px solid var(--red);border-radius:10px;touch-action:manipulation}
+  p{margin:0;opacity:.8;font-size:.9rem;text-align:center;padding:0 12px}
+</style>
+</head>
+<body>
+<h1>🕸️ Teia de Ouro</h1>
+<canvas id="c" width="720" height="360"></canvas>
+<p>Toque na tela ou aperte ESPAÇO para pular. Recolha 5 teias douradas, desvie dos obstáculos e chegue ao topo do prédio.</p>
+<script>
+const c=document.getElementById('c'),x=c.getContext('2d');
+const G=300,N=5;
+let p,items,obs,webs,speed,state,dist,GOAL=3000;
+function reset(){
+  p={x:80,y:G-30,vy:0,on:true};
+  speed=3.2;dist=0;webs=0;state='play';
+  items=[];obs=[];
+  for(let d=500;d<GOAL-300;d+=420){
+    obs.push({x:d,w:26,h:34});
+    if(items.length<N)items.push({x:d+200,y:G-90,got:false});
+  }
+}
+function jump(){
+  if(state!=='play'){reset();return}
+  if(p.on){p.vy=-12;p.on=false}
+}
+addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();jump()}});
+c.addEventListener('pointerdown',jump);
+function hero(px,py){
+  const r=(a,b,w,h,f)=>{x.fillStyle=f;x.fillRect(px+a,py+b,w,h)};
+  r(-6,-30,12,12,'#E62429');r(-6,-26,4,4,'#fff');r(2,-26,4,4,'#fff');
+  r(-8,-18,16,12,'#E62429');r(-6,-6,12,6,'#1B3A8C');
+  r(-8,0,6,10,'#1B3A8C');r(2,0,6,10,'#E62429');
+  r(8,-26,4,12,'#E62429');r(-12,-16,4,10,'#1B3A8C');
+}
+function loop(){
+  x.clearRect(0,0,720,360);
+  // prédios ao fundo
+  x.fillStyle='#ffffff12';
+  for(let i=0;i<8;i++){const bx=((i*140-dist*.3)%1120+1120)%1120-140;x.fillRect(bx,120+(i%3)*30,90,G-120-(i%3)*30)}
+  x.fillStyle='#161b22';x.fillRect(0,G,720,60);
+  x.fillStyle='#E62429';x.fillRect(0,G,720,4);
+  if(state==='play'){
+    dist+=speed;
+    p.vy+=.6;p.y+=p.vy;
+    if(p.y>=G-0){p.y=G;p.vy=0;p.on=true}
+    obs.forEach(o=>{
+      const ox=o.x-dist+p.x;
+      x.fillStyle='#8b949e';x.fillRect(ox-o.w/2,G-o.h,o.w,o.h);
+      if(Math.abs(ox-p.x)<o.w/2+8&&p.y>G-o.h)state='lose';
+    });
+    items.forEach(i=>{
+      const ix=i.x-dist+p.x;
+      if(!i.got){
+        x.fillStyle='#FFD700';x.beginPath();x.arc(ix,i.y,10,0,7);x.fill();
+        x.strokeStyle='#fff';x.beginPath();x.moveTo(ix-10,i.y);x.lineTo(ix+10,i.y);x.moveTo(ix,i.y-10);x.lineTo(ix,i.y+10);x.stroke();
+        if(Math.hypot(ix-p.x,i.y-(p.y-15))<26){i.got=true;webs++}
+      }
+    });
+    const gx=GOAL-dist+p.x;
+    x.fillStyle='#1B3A8C';x.fillRect(gx,G-160,120,160);
+    x.fillStyle='#E62429';x.fillRect(gx,G-160,120,8);
+    if(p.x>=gx)state=webs>=N?'win':'lose';
+  }
+  hero(p.x,p.y-10);
+  x.fillStyle='#fff';x.font='bold 18px system-ui';
+  x.fillText('Teias: '+webs+'/'+N,16,28);
+  if(state!=='play'){
+    x.fillStyle='#000a';x.fillRect(0,0,720,360);
+    x.fillStyle='#fff';x.textAlign='center';x.font='bold 30px system-ui';
+    x.fillText(state==='win'?'Missão cumprida! 🕷️':(webs<N&&dist>=GOAL-120?'Faltaram teias!':'Ops, tente de novo'),360,170);
+    x.font='16px system-ui';x.fillText('Toque ou ESPAÇO para jogar de novo',360,205);x.textAlign='left';
+  }
+  requestAnimationFrame(loop);
+}
+reset();loop();
+</script>
+</body>
+</html>
