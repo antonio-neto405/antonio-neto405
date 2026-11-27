@@ -1,119 +1,62 @@
-# 🕷️ Antonio Dias de Souza Neto
+<!-- Banner do Topo com o teu nome e temática do Homem-Aranha -->
+<div align="center">
+  <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:b11313,50:df1f2d,100:2b3784&height=200§ion=header&text=Ant%C3%B4nio%20Dias&fontSize=45&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Friendly%20Neighborhood%20Full%20Stack%20Developer%20🕷️&descAlignY=58&descSize=18"/>
+</div>
 
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:080B16,50:162B65,100:E62429&height=220&section=header&text=SPIDER%20DEVELOPER&fontSize=42&fontColor=FFFFFF&fontAlignY=38&desc=With%20great%20code%20comes%20great%20responsibility.&descSize=13&descAlignY=58&animation=fadeIn" width="100%" />
-</p>
-
-<p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1000&color=E62429&center=true&vCenter=true&width=650&lines=Hello%2C+World!+I'm+Antonio.;Full-Stack+Developer+in+Progress.;Building+Ideas+Into+Reality.;Your+Friendly+Neighborhood+Developer." />
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/IFRN-Internet%20Systems-1D4ED8?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Focus-Full--Stack-E62429?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Status-Always%20Learning-111827?style=for-the-badge" />
-</p>
-
----
-
-## 🕸️ WHO AM I? | QUEM SOU EU?
-
-Olá! Sou **Antonio Dias de Souza Neto**, estudante de Tecnologia em Sistemas para Internet no **Instituto Federal do Rio Grande do Norte (IFRN)**.
-
-Sou apaixonado por tecnologia, programação e desenvolvimento de soluções digitais. Gosto de transformar ideias em projetos reais, explorar novas ferramentas e enfrentar desafios que me ajudam a evoluir como desenvolvedor.
-
-Assim como o Homem-Aranha, acredito que grandes resultados vêm de responsabilidade, dedicação e persistência.
-
-> 🕷️ "With great power comes great responsibility."
-
----
-
-## 💻 MY SUPERPOWERS | TECNOLOGIAS
-
-### Frontend
-<p>
-  <img src="https://skillicons.dev/icons?i=html,css,js,react" />
-</p>
-
-### Backend
-<p>
-  <img src="https://skillicons.dev/icons?i=nodejs,express,java" />
-</p>
-
-### Database
-<p>
-  <img src="https://skillicons.dev/icons?i=mysql" />
-</p>
-
-### Developer Tools
-<p>
-  <img src="https://skillicons.dev/icons?i=git,github,vscode,figma" />
-</p>
-
----
-
-## 🚀 MISSIONS COMPLETED | PROJETOS
-
-### 🛒 NEXMART — E-commerce Platform
-
-Uma plataforma de comércio eletrônico com foco em experiência de compra, organização de produtos e interface moderna.
-
-**Main concepts:** E-commerce · Web Development · User Experience
-
-🔗 [Visitar NEXMART](https://nexmart-loja-completa.vercel.app/)
-
-### 🍔 BURGER PRIME — Online Food Store
-
-Sistema de loja virtual para hamburgueria, com catálogo de produtos e experiência de pedidos online.
-
-**Main concepts:** Online Store · Order Management · Database
-
-### 🏥 HEALTH PRIME — Healthcare Management
-
-Sistema de gestão de saúde para organização de pacientes, médicos e consultas, com integração a banco de dados.
-
-**Main concepts:** Full-Stack · Database Management · System Development
-
----
-
-## 📊 MY GITHUB UNIVERSE
-
-<p align="center">
-  <img height="170" src="https://github-readme-stats.vercel.app/api?username=antonio-neto405&show_icons=true&theme=tokyonight&hide_border=true&title_color=E62429&icon_color=3B82F6" />
-  <img height="170" src="https://github-readme-stats.vercel.app/api/top-langs/?username=antonio-neto405&layout=compact&theme=tokyonight&hide_border=true&title_color=E62429" />
-</p>
-
-<p align="center">
-  <img src="https://streak-stats.demolab.com?user=antonio-neto405&theme=tokyonight&hide_border=true&ring=E62429&fire=E62429&currStreakLabel=3B82F6" />
-</p>
-
----
-
-## 🎯 THE NEXT CHAPTER | PRÓXIMOS OBJETIVOS
-
-- [x] Start my journey in technology.
-- [x] Build real-world web projects.
-- [ ] Improve Full-Stack development skills.
-- [ ] Explore software architecture.
-- [ ] Contribute to Open Source projects.
-- [ ] Build increasingly better applications.
-
----
-
-## 📡 FIND ME ON THE WEB
-
-<p align="center">
-  <a href="https://github.com/antonio-neto405">
-    <img src="https://img.shields.io/badge/GitHub-My%20Profile-181717?style=for-the-badge&logo=github" />
+<div align="center">
+  <a href="https://git.io/typing-svg">
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1000&color=DF1F2D¢er=true&vCenter=true&width=650&lines=Com+grandes+poderes+v%C3%AAm+grandes+responsabilidades...;...e+com+grandes+c%C3%B3digos,+grandes+commits!;Desenvolvedor+Web+em+forma%C3%A7%C3%A3o+%7C+TSI+-+IFRN+%F0%9F%9A%80" alt="Typing SVG" />
   </a>
-</p>
+</div>
 
-<p align="center">
-  <b>🕷️ Friendly Neighborhood Developer</b>
-  <br/>
-  <i>Learning today. Building tomorrow. Creating the future.</i>
-</p>
+---
 
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:E62429,50:162B65,100:080B16&height=110&section=footer" width="100%" />
-</p>
+### 🕸️ Quem está por trás da máscara?
+
+Olá! Eu sou o **Antônio Dias**, desenvolvedor web em formação pelo curso de **Tecnologia em Sistemas para Internet (TSI) no IFRN**, direto do Rio Grande do Norte[cite: 1]. Assim como o Peter Parker no laboratório, passo boa parte do meu tempo a testar fórmulas, a construir aplicações na teia da web e a combater bugs.
+
+- 🎓 **Formação:** Tecnologia em Sistemas para Internet (TSI) — IFRN[cite: 1]
+- 💻 **Foco:** Desenvolvimento Web Full Stack[cite: 1]
+- 📍 **Base de Operações:** Rio Grande do Norte, Brasil[cite: 1]
+- ⚡ **Lema:** *Disciplina, Foco e Progresso*[cite: 1]
+
+---
+
+### 🧬 Arsenal Tecnológico (Fórmula da Teia)
+
+<div align="left">
+  <img src="https://skillicons.dev/icons?i=html,css,js,ts,react,nodejs,python,git,github,vscode&theme=dark" />
+</div>
+
+*(Nota: podes alterar, adicionar ou remover os nomes das tecnologias diretamente no link acima conforme as linguagens que mais utilizas no IFRN!)*
+
+---
+
+### 📡 Radar do Aranhaverso (Estatísticas)
+
+<div align="center">
+  <img height="170em" src="https://github-readme-stats.vercel.app/api?username=antonio-neto405&show_icons=true&theme=radical&include_all_commits=true&count_private=true&bg_color=0D1117&title_color=DF1F2D&icon_color=447BBE&border_color=2B3784"/>
+  <img height="170em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=antonio-neto405&layout=compact&langs_count=8&theme=radical&bg_color=0D1117&title_color=DF1F2D&border_color=2B3784"/>
+</div>
+
+---
+
+### 🏙️ Onde me encontrar na cidade
+
+<div align="left">
+  <a href="https://github.com/antonio-neto405" target="_blank">
+    <img src="https://img.shields.io/badge/GitHub-0D1117?style=for-the-badge&logo=github&logoColor=white" />
+  </a>
+  <a href="https://www.linkedin.com/in/SEU-LINKEDIN/" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-2B3784?style=for-the-badge&logo=linkedin&logoColor=white" />
+  </a>
+  <a href="mailto:seuemail@exemplo.com">
+    <img src="https://img.shields.io/badge/Gmail-DF1F2D?style=for-the-badge&logo=gmail&logoColor=white" />
+  </a>
+</div>
+
+<br/>
+
+<div align="center">
+  <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:2b3784,50:df1f2d,100:b11313&height=100§ion=footer"/>
+</div>
