@@ -1,50 +1,41 @@
-# 👨‍💻 Antonio Dias de Souza Neto
-
-### Building the Future with Code. 🚀
-**Desenvolvedor em formação | Full-Stack Developer in Progress**
+# 🕷️ Antonio Dias de Souza Neto
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=38BDF8&center=true&vCenter=true&width=750&lines=Turning+Ideas+into+Digital+Solutions;Always+Learning.+Always+Building.;Technology+%7C+Development+%7C+Innovation" alt="Typing SVG" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:080B16,50:162B65,100:E62429&height=220&section=header&text=SPIDER%20DEVELOPER&fontSize=42&fontColor=FFFFFF&fontAlignY=38&desc=With%20great%20code%20comes%20great%20responsibility.&descSize=13&descAlignY=58&animation=fadeIn" width="100%" />
 </p>
 
 <p align="center">
-  <a href="https://github.com/antonio-neto405">
-    <img src="https://img.shields.io/badge/GitHub-antonio--neto405-181717?style=for-the-badge&logo=github" />
-  </a>
-  <img src="https://img.shields.io/badge/Focus-Full--Stack%20Development-2563EB?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Status-Always%20Learning-16A34A?style=for-the-badge" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1000&color=E62429&center=true&vCenter=true&width=650&lines=Hello%2C+World!+I'm+Antonio.;Full-Stack+Developer+in+Progress.;Building+Ideas+Into+Reality.;Your+Friendly+Neighborhood+Developer." />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/IFRN-Internet%20Systems-1D4ED8?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Focus-Full--Stack-E62429?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Status-Always%20Learning-111827?style=for-the-badge" />
 </p>
 
 ---
 
-## 👋 About Me | Sobre Mim
+## 🕸️ WHO AM I? | QUEM SOU EU?
 
-Olá! Sou estudante de **Tecnologia em Sistemas para Internet no Instituto Federal do Rio Grande do Norte (IFRN)**, interessado em desenvolvimento de software, tecnologia e inovação.
+Olá! Sou **Antonio Dias de Souza Neto**, estudante de Tecnologia em Sistemas para Internet no **Instituto Federal do Rio Grande do Norte (IFRN)**.
 
-Gosto de transformar ideias em soluções digitais, desenvolvendo aplicações que combinam funcionalidade, organização, design e uma boa experiência para o usuário.
+Sou apaixonado por tecnologia, programação e desenvolvimento de soluções digitais. Gosto de transformar ideias em projetos reais, explorar novas ferramentas e enfrentar desafios que me ajudam a evoluir como desenvolvedor.
 
-Atualmente, estou aprofundando meus conhecimentos em desenvolvimento web, aplicações Full-Stack, bancos de dados e engenharia de software.
+Assim como o Homem-Aranha, acredito que grandes resultados vêm de responsabilidade, dedicação e persistência.
 
-**My mindset:** Learn, Build, Improve and Repeat.
-
-### 🎯 Professional Goals | Objetivos Profissionais
-
-- Evoluir como desenvolvedor Full-Stack.
-- Criar aplicações modernas, funcionais e escaláveis.
-- Desenvolver soluções para problemas reais.
-- Aprimorar conhecimentos em arquitetura de software e bancos de dados.
-- Participar de projetos colaborativos e contribuir com a comunidade de tecnologia.
+> 🕷️ "With great power comes great responsibility."
 
 ---
 
-## 💻 Tech Stack | Tecnologias
+## 💻 MY SUPERPOWERS | TECNOLOGIAS
 
-### Frontend Development
+### Frontend
 <p>
   <img src="https://skillicons.dev/icons?i=html,css,js,react" />
 </p>
 
-### Backend Development
+### Backend
 <p>
   <img src="https://skillicons.dev/icons?i=nodejs,express,java" />
 </p>
@@ -54,71 +45,75 @@ Atualmente, estou aprofundando meus conhecimentos em desenvolvimento web, aplica
   <img src="https://skillicons.dev/icons?i=mysql" />
 </p>
 
-### Tools & Workflow
+### Developer Tools
 <p>
   <img src="https://skillicons.dev/icons?i=git,github,vscode,figma" />
 </p>
 
 ---
 
-## 🚀 Featured Projects | Projetos em Destaque
-
-Projetos desenvolvidos para aplicar conhecimentos, explorar novas tecnologias e criar soluções digitais.
+## 🚀 MISSIONS COMPLETED | PROJETOS
 
 ### 🛒 NEXMART — E-commerce Platform
-Plataforma de comércio eletrônico com foco em organização de produtos, experiência de compra e interface moderna.
 
-**Focus:** E-commerce • Web Development • User Experience
+Uma plataforma de comércio eletrônico com foco em experiência de compra, organização de produtos e interface moderna.
 
-### 🍔 BURGER PRIME — Digital Food Ordering
-Sistema de pedidos online para hamburgueria, desenvolvido para oferecer uma experiência de compra prática e intuitiva.
+**Main concepts:** E-commerce · Web Development · User Experience
 
-**Focus:** Online Store • Order Management • Database
+🔗 [Visitar NEXMART](https://nexmart-loja-completa.vercel.app/)
 
-### 🏥 HEALTH PRIME — Healthcare Management System
-Sistema de gestão de saúde voltado à organização de pacientes, médicos e consultas, com integração a banco de dados.
+### 🍔 BURGER PRIME — Online Food Store
 
-**Focus:** Full-Stack Development • Database Management • System Design
+Sistema de loja virtual para hamburgueria, com catálogo de produtos e experiência de pedidos online.
+
+**Main concepts:** Online Store · Order Management · Database
+
+### 🏥 HEALTH PRIME — Healthcare Management
+
+Sistema de gestão de saúde para organização de pacientes, médicos e consultas, com integração a banco de dados.
+
+**Main concepts:** Full-Stack · Database Management · System Development
 
 ---
 
-## 📊 GitHub Analytics
+## 📊 MY GITHUB UNIVERSE
 
 <p align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=antonio-neto405&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true" />
-  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=antonio-neto405&layout=compact&theme=tokyonight&hide_border=true" />
+  <img height="170" src="https://github-readme-stats.vercel.app/api?username=antonio-neto405&show_icons=true&theme=tokyonight&hide_border=true&title_color=E62429&icon_color=3B82F6" />
+  <img height="170" src="https://github-readme-stats.vercel.app/api/top-langs/?username=antonio-neto405&layout=compact&theme=tokyonight&hide_border=true&title_color=E62429" />
 </p>
 
 <p align="center">
-  <img src="https://streak-stats.demolab.com?user=antonio-neto405&theme=tokyonight&hide_border=true" />
+  <img src="https://streak-stats.demolab.com?user=antonio-neto405&theme=tokyonight&hide_border=true&ring=E62429&fire=E62429&currStreakLabel=3B82F6" />
 </p>
 
 ---
 
-## 🌱 Currently Learning
+## 🎯 THE NEXT CHAPTER | PRÓXIMOS OBJETIVOS
 
-- Full-Stack Web Development
-- Database Modeling and SQL
-- Software Architecture
-- Clean Code and Best Practices
-- Modern User Interface Design
+- [x] Start my journey in technology.
+- [x] Build real-world web projects.
+- [ ] Improve Full-Stack development skills.
+- [ ] Explore software architecture.
+- [ ] Contribute to Open Source projects.
+- [ ] Build increasingly better applications.
 
 ---
 
-## 🤝 Let's Connect!
+## 📡 FIND ME ON THE WEB
 
 <p align="center">
   <a href="https://github.com/antonio-neto405">
-    <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />
+    <img src="https://img.shields.io/badge/GitHub-My%20Profile-181717?style=for-the-badge&logo=github" />
   </a>
 </p>
 
----
-
 <p align="center">
-  <b>Always Learning. Always Building. Always Improving.</b>
+  <b>🕷️ Friendly Neighborhood Developer</b>
+  <br/>
+  <i>Learning today. Building tomorrow. Creating the future.</i>
 </p>
 
 <p align="center">
-  ⭐ Thanks for visiting my profile!
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:E62429,50:162B65,100:080B16&height=110&section=footer" width="100%" />
 </p>
