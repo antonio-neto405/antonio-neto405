@@ -2,88 +2,144 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Teia de Ouro · Arcade</title>
 <style>
   :root{--red:#E62429;--blue:#1B3A8C;--bg:#0b1020;--fg:#fff}
   *{box-sizing:border-box}
-  body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:var(--bg);color:var(--fg);font-family:system-ui,sans-serif}
-  h1{margin:0;font-size:1.3rem;color:var(--red)}
-  canvas{width:min(94vw,720px);aspect-ratio:2/1;background:linear-gradient(#1B3A8C,#0b1020);border:3px solid var(--red);border-radius:10px;touch-action:manipulation}
-  p{margin:0;opacity:.8;font-size:.9rem;text-align:center;padding:0 12px}
+  body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:12px;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+  h1{margin:0;font-size:1.4rem;color:var(--red);letter-spacing:.5px}
+  canvas{width:min(96vw,760px);aspect-ratio:2/1;background:linear-gradient(#1B3A8C,#0b1020 85%);border:3px solid var(--red);border-radius:12px;touch-action:manipulation;user-select:none;-webkit-tap-highlight-color:transparent}
+  p{margin:0;opacity:.8;font-size:.9rem;text-align:center;max-width:620px}
 </style>
 </head>
 <body>
 <h1>🕸️ Teia de Ouro</h1>
-<canvas id="c" width="720" height="360"></canvas>
-<p>Toque na tela ou aperte ESPAÇO para pular. Recolha 5 teias douradas, desvie dos obstáculos e chegue ao topo do prédio.</p>
+<canvas id="c" width="720" height="360" aria-label="Jogo Teia de Ouro"></canvas>
+<p>Toque na tela ou use ESPAÇO / ↑ para pular (segure para pular mais alto). Recolha as 5 teias douradas, desvie dos obstáculos e chegue ao topo do prédio.</p>
 <script>
-const c=document.getElementById('c'),x=c.getContext('2d');
-const G=300,N=5;
-let p,items,obs,webs,speed,state,dist,GOAL=3000;
-function reset(){
-  p={x:80,y:G-30,vy:0,on:true};
-  speed=3.2;dist=0;webs=0;state='play';
-  items=[];obs=[];
-  for(let d=500;d<GOAL-300;d+=420){
-    obs.push({x:d,w:26,h:34});
-    if(items.length<N)items.push({x:d+200,y:G-90,got:false});
+const cv = document.getElementById('c'), x = cv.getContext('2d');
+const dpr = Math.min(window.devicePixelRatio || 1, 2);
+cv.width = 720 * dpr; cv.height = 360 * dpr; x.scale(dpr, dpr); x.imageSmoothingEnabled = false;
+
+const G = 300, PX = 100, GOAL = 3600, S = 3, NEED = 5;
+const TOP = ['...RRRRRR...','..RRRRRRRR..','..RWWRRWWR..','..RRWRRWRR..','...RRRRRR...','.BRRRRRRRRB.','.BRRRBBRRRB.','..RRRBBRRR..','...BBBBBB...','...BBBBBB...'];
+const LEG_A = ['...BB..BB...','...BB..BB...','...RR..RR...'];
+const LEG_B = ['..BB....BB..','..BB....BB..','..RR....RR..'];
+const COR = { R: '#E62429', B: '#1B3A8C', W: '#fff' };
+const OB = [{ w: 28, h: 38, c: '#8b949e' }, { w: 46, h: 22, c: '#b08968' }];
+const LAYOUT = [[600,0],[1050,1],[1500,0],[1900,1],[2350,0],[2750,1],[3150,0]];
+const TEIAS = [0, 2, 3, 5, 6];
+
+let st = 'menu', msg = '', p, dist, webs, lives, inv, frame, items, best = null;
+try { best = +localStorage.getItem('teia_best') || null; } catch (e) {}
+
+function start() {
+  p = { y: G, vy: 0, on: true };
+  dist = 0; webs = 0; lives = 3; inv = 0; frame = 0; st = 'play';
+  items = TEIAS.map(i => ({ x: LAYOUT[i][0], got: false }));
+}
+function press() {
+  if (st !== 'play') { start(); return; }
+  if (p.on) { p.vy = -12.5; p.on = false; }
+}
+function release() { if (p && p.vy < -4) p.vy *= .5; }
+addEventListener('keydown', e => {
+  if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); if (!e.repeat) press(); }
+});
+addEventListener('keyup', e => { if (e.code === 'Space' || e.code === 'ArrowUp') release(); });
+cv.addEventListener('pointerdown', press);
+addEventListener('pointerup', release);
+
+function step() {
+  const sp = 3.4 + (dist / GOAL) * 1.6;
+  dist += sp; frame++;
+  p.vy += .62; p.y += p.vy;
+  if (p.y >= G) { p.y = G; p.vy = 0; p.on = true; }
+  if (inv > 0) inv--;
+  for (const [ox, t] of LAYOUT) {
+    const o = OB[t], sx = ox - dist + PX;
+    if (!inv && Math.abs(sx - PX) < o.w / 2 + 9 && p.y > G - o.h + 2) {
+      lives--; inv = 90;
+      if (lives <= 0) { st = 'lose'; msg = 'Sem vidas! Tente de novo'; }
+    }
+  }
+  for (const i of items) {
+    if (!i.got && Math.hypot(i.x - dist, (G - 90) - (p.y - 20)) < 30) { i.got = true; webs++; }
+  }
+  if (dist >= GOAL && st === 'play') {
+    if (webs >= NEED) {
+      st = 'win';
+      const t = Math.round(frame / 6) / 10;
+      msg = 'Missão cumprida em ' + t + 's!';
+      if (!best || t < best) { best = t; try { localStorage.setItem('teia_best', t); } catch (e) {} }
+    } else { st = 'lose'; msg = 'Faltaram ' + (NEED - webs) + ' teia(s)'; }
   }
 }
-function jump(){
-  if(state!=='play'){reset();return}
-  if(p.on){p.vy=-12;p.on=false}
+
+function hero(px, py) {
+  const legs = p.on && Math.floor(frame / 8) % 2 ? LEG_A : LEG_B;
+  const rows = TOP.concat(p.on ? legs : LEG_B);
+  rows.forEach((row, r) => [...row].forEach((c, i) => {
+    if (COR[c]) { x.fillStyle = COR[c]; x.fillRect(px + (i - 6) * S, py - 13 * S + r * S, S, S); }
+  }));
 }
-addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();jump()}});
-c.addEventListener('pointerdown',jump);
-function hero(px,py){
-  const r=(a,b,w,h,f)=>{x.fillStyle=f;x.fillRect(px+a,py+b,w,h)};
-  r(-6,-30,12,12,'#E62429');r(-6,-26,4,4,'#fff');r(2,-26,4,4,'#fff');
-  r(-8,-18,16,12,'#E62429');r(-6,-6,12,6,'#1B3A8C');
-  r(-8,0,6,10,'#1B3A8C');r(2,0,6,10,'#E62429');
-  r(8,-26,4,12,'#E62429');r(-12,-16,4,10,'#1B3A8C');
+function skyline(par, cor, seed, hmin, hv, janelas) {
+  for (let i = 0; i < 10; i++) {
+    const w = 80 + (i * 37 + seed) % 40, h = hmin + (i * 53 + seed) % hv;
+    const bx = (((i * 120 - dist * par) % 1200) + 1200) % 1200 - 150;
+    x.fillStyle = cor; x.fillRect(bx, G - h, w, h);
+    if (janelas) {
+      x.fillStyle = '#ffd86655';
+      for (let wx = bx + 10; wx < bx + w - 10; wx += 18)
+        for (let wy = G - h + 12; wy < G - 12; wy += 24) if ((wx * 7 + wy) % 5 < 2) x.fillRect(wx, wy, 6, 9);
+    }
+  }
 }
-function loop(){
-  x.clearRect(0,0,720,360);
-  // prédios ao fundo
-  x.fillStyle='#ffffff12';
-  for(let i=0;i<8;i++){const bx=((i*140-dist*.3)%1120+1120)%1120-140;x.fillRect(bx,120+(i%3)*30,90,G-120-(i%3)*30)}
-  x.fillStyle='#161b22';x.fillRect(0,G,720,60);
-  x.fillStyle='#E62429';x.fillRect(0,G,720,4);
-  if(state==='play'){
-    dist+=speed;
-    p.vy+=.6;p.y+=p.vy;
-    if(p.y>=G-0){p.y=G;p.vy=0;p.on=true}
-    obs.forEach(o=>{
-      const ox=o.x-dist+p.x;
-      x.fillStyle='#8b949e';x.fillRect(ox-o.w/2,G-o.h,o.w,o.h);
-      if(Math.abs(ox-p.x)<o.w/2+8&&p.y>G-o.h)state='lose';
+function draw() {
+  x.clearRect(0, 0, 720, 360);
+  skyline(.2, '#ffffff10', 3, 110, 80, false);
+  skyline(.5, '#0b1020aa', 11, 70, 90, true);
+  x.fillStyle = '#161b22'; x.fillRect(0, G, 720, 60);
+  x.fillStyle = '#E62429'; x.fillRect(0, G, 720, 4);
+  if (st !== 'menu') {
+    LAYOUT.forEach(([ox, t]) => { const o = OB[t], sx = ox - dist + PX; x.fillStyle = o.c; x.fillRect(sx - o.w / 2, G - o.h, o.w, o.h); });
+    items.forEach(i => {
+      if (i.got) return;
+      const sx = i.x - dist + PX;
+      x.fillStyle = '#FFD700'; x.beginPath(); x.arc(sx, G - 90, 11, 0, 7); x.fill();
+      x.strokeStyle = '#fff'; x.lineWidth = 1.5; x.beginPath();
+      x.moveTo(sx - 11, G - 90); x.lineTo(sx + 11, G - 90); x.moveTo(sx, G - 101); x.lineTo(sx, G - 79); x.stroke();
     });
-    items.forEach(i=>{
-      const ix=i.x-dist+p.x;
-      if(!i.got){
-        x.fillStyle='#FFD700';x.beginPath();x.arc(ix,i.y,10,0,7);x.fill();
-        x.strokeStyle='#fff';x.beginPath();x.moveTo(ix-10,i.y);x.lineTo(ix+10,i.y);x.moveTo(ix,i.y-10);x.lineTo(ix,i.y+10);x.stroke();
-        if(Math.hypot(ix-p.x,i.y-(p.y-15))<26){i.got=true;webs++}
-      }
-    });
-    const gx=GOAL-dist+p.x;
-    x.fillStyle='#1B3A8C';x.fillRect(gx,G-160,120,160);
-    x.fillStyle='#E62429';x.fillRect(gx,G-160,120,8);
-    if(p.x>=gx)state=webs>=N?'win':'lose';
+    const gx = GOAL - dist + PX;
+    x.fillStyle = '#1B3A8C'; x.fillRect(gx, G - 190, 140, 190);
+    x.fillStyle = '#E62429'; x.fillRect(gx, G - 190, 140, 10);
+    x.fillStyle = '#fff'; x.font = 'bold 16px system-ui'; x.textAlign = 'left'; x.fillText('TOPO', gx + 40, G - 160);
+    if (!(inv > 0 && Math.floor(inv / 5) % 2)) hero(PX, p.y);
+    x.fillStyle = '#fff'; x.font = 'bold 18px system-ui'; x.textAlign = 'left';
+    x.fillText('🕸️ ' + webs + '/' + NEED, 16, 30);
+    x.fillText('❤'.repeat(Math.max(lives, 0)), 16, 54);
+    x.textAlign = 'right'; x.fillText(Math.min(100, Math.round(dist / GOAL * 100)) + '%', 704, 30);
+  } else { hero(PX, G); }
+  if (st !== 'play') {
+    x.fillStyle = '#000b'; x.fillRect(0, 0, 720, 360);
+    x.fillStyle = '#fff'; x.textAlign = 'center';
+    x.font = 'bold 32px system-ui';
+    x.fillText(st === 'menu' ? 'Teia de Ouro' : st === 'win' ? '🕷️ ' + msg : msg, 360, 150);
+    x.font = '17px system-ui';
+    x.fillText(st === 'menu' ? 'Recolha 5 teias e chegue ao topo do prédio' : 'Toque ou ESPAÇO para jogar de novo', 360, 188);
+    if (st === 'menu') x.fillText('Toque ou ESPAÇO para começar', 360, 214);
+    if (best) x.fillText('Melhor tempo: ' + best + 's', 360, 244);
+    x.textAlign = 'left';
   }
-  hero(p.x,p.y-10);
-  x.fillStyle='#fff';x.font='bold 18px system-ui';
-  x.fillText('Teias: '+webs+'/'+N,16,28);
-  if(state!=='play'){
-    x.fillStyle='#000a';x.fillRect(0,0,720,360);
-    x.fillStyle='#fff';x.textAlign='center';x.font='bold 30px system-ui';
-    x.fillText(state==='win'?'Missão cumprida! 🕷️':(webs<N&&dist>=GOAL-120?'Faltaram teias!':'Ops, tente de novo'),360,170);
-    x.font='16px system-ui';x.fillText('Toque ou ESPAÇO para jogar de novo',360,205);x.textAlign='left';
-  }
-  requestAnimationFrame(loop);
 }
-reset();loop();
+let last = 0, acc = 0;
+function loop(t) {
+  acc += Math.min(t - last, 100); last = t;
+  while (acc >= 1000 / 60) { if (st === 'play') step(); acc -= 1000 / 60; }
+  draw(); requestAnimationFrame(loop);
+}
+start(); st = 'menu'; requestAnimationFrame(loop);
 </script>
 </body>
 </html>
