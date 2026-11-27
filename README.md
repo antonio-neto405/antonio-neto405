@@ -115,5 +115,5 @@ Sistema de gestão de saúde para organização de pacientes, médicos e consult
 </p>
 
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:E62429,50:162B65,100:080B16&height=110&section=footer" width="100%" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:E62429,50:162B65, 100:080B16&height=110&section=footer" width="100%" />
 </p>
