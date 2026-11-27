@@ -1,0 +1,132 @@
+#!/usr/bin/env node
+// Gera assets/aranha-swing.svg: o Homem-Aranha balançando sobre o calendário
+// de contribuições real. Uso:
+//   GH_USER=usuario GH_TOKEN=token node scripts/gerar-calendario.js
+//   node scripts/gerar-calendario.js --demo   (dados de exemplo, sem rede)
+const fs = require('fs');
+const path = require('path');
+
+const USER = process.env.GH_USER || 'antonio-neto405';
+const TOKEN = process.env.GH_TOKEN;
+const DEMO = process.argv.includes('--demo') || !TOKEN;
+
+const SPRITE = [
+  '...RRRRRR...',
+  '..RRRRRRRR..',
+  '..RWWRRWWR..',
+  '..RRWRRWRR..',
+  '...RRRRRR...',
+  '.BRRRRRRRRB.',
+  '.BRRRBBRRRB.',
+  '..RRRBBRRR..',
+  '...BBBBBB...',
+  '...BBBBBB...',
+  '...BB..BB...',
+  '...BB..BB...',
+  '...RR..RR...',
+];
+const COR = { R: '#E62429', B: '#1B3A8C', W: '#ffffff' };
+const NIVEIS = ['#8b949e40', '#f6b3b5', '#ef6c71', '#E62429', '#9f1419'];
+const MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+
+async function buscar() {
+  if (DEMO) {
+    let s = 7;
+    const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+    const hoje = new Date();
+    const ini = new Date(hoje);
+    ini.setDate(hoje.getDate() - (52 * 7 + hoje.getDay()));
+    const weeks = [];
+    let total = 0;
+    for (let w = 0; w < 53; w++) {
+      const contributionDays = [];
+      for (let d = 0; d < 7; d++) {
+        const dia = new Date(ini);
+        dia.setDate(ini.getDate() + w * 7 + d);
+        if (dia > hoje) continue;
+        const r = rnd();
+        const n = r < 0.4 ? 0 : Math.floor(r * 14);
+        total += n;
+        contributionDays.push({ contributionCount: n, weekday: d, date: dia.toISOString().slice(0, 10) });
+      }
+      weeks.push({ contributionDays });
+    }
+    return { totalContributions: total, weeks };
+  }
+  const query = `query($u:String!){user(login:$u){contributionsCollection{contributionCalendar{
+    totalContributions weeks{contributionDays{contributionCount weekday date}}}}}}`;
+  const r = await fetch('https://api.github.com/graphql', {
+    method: 'POST',
+    headers: { Authorization: `bearer ${TOKEN}`, 'Content-Type': 'application/json', 'User-Agent': 'calendario-aranha' },
+    body: JSON.stringify({ query, variables: { u: USER } }),
+  });
+  const j = await r.json();
+  if (j.errors || !j.data || !j.data.user) throw new Error(JSON.stringify(j.errors || 'usuário não encontrado'));
+  return j.data.user.contributionsCollection.contributionCalendar;
+}
+
+function render(cal) {
+  const sem = cal.weeks;
+  const W = sem.length * 13 - 2, H = 216, gy = 102;
+  const max = Math.max(1, ...sem.flatMap((s) => s.contributionDays.map((d) => d.contributionCount)));
+  let celulas = '', meses = '', ult = -1;
+
+  sem.forEach((s, w) => {
+    const m = new Date(s.contributionDays[0].date + 'T12:00:00').getMonth();
+    if (m !== ult && w < sem.length - 2) meses += `<text x="${w * 13}" y="${gy - 7}">${MESES[m]}</text>`;
+    ult = m;
+    s.contributionDays.forEach((d) => {
+      const n = d.contributionCount;
+      const nivel = n === 0 ? 0 : n / max <= 0.25 ? 1 : n / max <= 0.5 ? 2 : n / max <= 0.75 ? 3 : 4;
+      celulas += `<rect x="${w * 13}" y="${gy + d.weekday * 13}" width="11" height="11" rx="2" fill="${NIVEIS[nivel]}"/>`;
+    });
+  });
+
+  const pixels = SPRITE.flatMap((linha, r) =>
+    [...linha].map((c, i) => (COR[c] ? `<rect x="${(i - 6) * 2}" y="${r * 2 - 13}" width="2" height="2" fill="${COR[c]}"/>` : ''))
+  ).join('');
+
+  const x0 = 20, seg = (W - 40) / 4;
+  const alt = (u) => 36 + 110 * u * (1 - u);
+  const pos = [];
+  for (let i = 0; i <= 40; i++) {
+    const k = Math.min(Math.floor(i / 10), 3), u = (i - 10 * k) / 10;
+    pos.push(`${(x0 + seg * (k + u)).toFixed(1)},${alt(u).toFixed(1)}`);
+  }
+  const us = Array.from({ length: 11 }, (_, i) => i / 10);
+  const x1 = us.map((u) => (seg * (0.5 - u)).toFixed(1)).join(';');
+  const y1 = us.map((u) => (-alt(u)).toFixed(1)).join(';');
+  const ancoras = [0, 1, 2, 3]
+    .map((k) => `<rect x="${(x0 + seg * (k + 0.5) - 3).toFixed(1)}" y="0" width="6" height="5" rx="1" fill="#8b949e"/>`)
+    .join('');
+  const data = new Date().toLocaleDateString('pt-BR', { timeZone: 'America/Fortaleza' });
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Homem-Aranha em pixel art balançando sobre o calendário de contribuições">
+<title>Homem-Aranha balançando sobre o calendário de contribuições</title>
+<style>text{font:11px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#8b949e}</style>
+${ancoras}
+<g>${celulas}</g>
+<g>${meses}</g>
+<g shape-rendering="crispEdges">
+<animateTransform attributeName="transform" type="translate" dur="8s" repeatCount="indefinite" values="${pos.join(';')}"/>
+<line x1="0" y1="-40" x2="0" y2="-13" stroke="#8b949e" stroke-width="1.5">
+<animate attributeName="x1" dur="2s" repeatCount="indefinite" values="${x1}"/>
+<animate attributeName="y1" dur="2s" repeatCount="indefinite" values="${y1}"/>
+</line>
+${pixels}
+</g>
+<text x="0" y="${H - 6}">Registro do calendário em ${data} · ${cal.totalContributions} contribuições no último ano</text>
+</svg>`;
+}
+
+buscar()
+  .then((cal) => {
+    const out = path.join(__dirname, '..', 'assets', 'aranha-swing.svg');
+    fs.mkdirSync(path.dirname(out), { recursive: true });
+    fs.writeFileSync(out, render(cal));
+    console.log(`OK (${DEMO ? 'dados de exemplo' : 'dados reais de ' + USER}): ${out}`);
+  })
+  .catch((e) => {
+    console.error('Erro:', e.message);
+    process.exit(1);
+  });
